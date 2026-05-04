@@ -47,7 +47,7 @@ export default function Editor({ value, onChange, placeholder = 'Write your stor
     content: value,
     editorProps: {
       attributes: {
-        class: 'prose prose-lg sm:prose-xl focus:outline-none min-h-[300px] mt-4 max-w-none text-gray-800'
+        class: 'prose prose-lg sm:prose-xl focus:outline-none min-h-[300px] mt-4 max-w-none text-gray-800 dark:prose-invert dark:text-gray-300 dark:prose-headings:text-gray-100 dark:prose-strong:text-gray-100'
       }
     },
     onUpdate: ({ editor }) => {
@@ -117,16 +117,16 @@ export default function Editor({ value, onChange, placeholder = 'Write your stor
 
       {editor && (
         <FloatingMenu editor={editor} tippyOptions={{ duration: 100 }} className="flex items-center gap-1">
-          <div className="bg-white border border-gray-200 shadow-lg rounded-full flex items-center p-1">
-            <button onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()} className={`p-2 rounded-full hover:bg-gray-100 transition-colors ${editor.isActive('heading', { level: 1 }) ? 'bg-gray-100 text-green-600' : 'text-gray-600'}`} title="Heading 1"><Heading1 size={18} /></button>
-            <button onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()} className={`p-2 rounded-full hover:bg-gray-100 transition-colors ${editor.isActive('heading', { level: 2 }) ? 'bg-gray-100 text-green-600' : 'text-gray-600'}`} title="Heading 2"><Heading2 size={18} /></button>
-            <div className="w-px h-6 bg-gray-200 mx-1"></div>
-            <button onClick={() => editor.chain().focus().toggleBulletList().run()} className={`p-2 rounded-full hover:bg-gray-100 transition-colors ${editor.isActive('bulletList') ? 'bg-gray-100 text-green-600' : 'text-gray-600'}`} title="Bullet List"><List size={18} /></button>
-            <button onClick={() => editor.chain().focus().toggleOrderedList().run()} className={`p-2 rounded-full hover:bg-gray-100 transition-colors ${editor.isActive('orderedList') ? 'bg-gray-100 text-green-600' : 'text-gray-600'}`} title="Numbered List"><ListOrdered size={18} /></button>
-            <button onClick={() => editor.chain().focus().toggleBlockquote().run()} className={`p-2 rounded-full hover:bg-gray-100 transition-colors ${editor.isActive('blockquote') ? 'bg-gray-100 text-green-600' : 'text-gray-600'}`} title="Quote"><Quote size={18} /></button>
-            <div className="w-px h-6 bg-gray-200 mx-1"></div>
-            <button onClick={addImage} className="p-2 rounded-full hover:bg-gray-100 transition-colors text-gray-600" title="Add Image"><ImageIcon size={18} /></button>
-            <button onClick={addYoutube} className="p-2 rounded-full hover:bg-gray-100 transition-colors text-gray-600" title="Add YouTube Video"><YoutubeIcon size={18} /></button>
+          <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-lg rounded-full flex items-center p-1">
+            <button onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()} className={`p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors ${editor.isActive('heading', { level: 1 }) ? 'bg-gray-100 dark:bg-gray-700 text-green-600 dark:text-green-400' : 'text-gray-600 dark:text-gray-300'}`} title="Heading 1"><Heading1 size={18} /></button>
+            <button onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()} className={`p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors ${editor.isActive('heading', { level: 2 }) ? 'bg-gray-100 dark:bg-gray-700 text-green-600 dark:text-green-400' : 'text-gray-600 dark:text-gray-300'}`} title="Heading 2"><Heading2 size={18} /></button>
+            <div className="w-px h-6 bg-gray-200 dark:bg-gray-700 mx-1"></div>
+            <button onClick={() => editor.chain().focus().toggleBulletList().run()} className={`p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors ${editor.isActive('bulletList') ? 'bg-gray-100 dark:bg-gray-700 text-green-600 dark:text-green-400' : 'text-gray-600 dark:text-gray-300'}`} title="Bullet List"><List size={18} /></button>
+            <button onClick={() => editor.chain().focus().toggleOrderedList().run()} className={`p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors ${editor.isActive('orderedList') ? 'bg-gray-100 dark:bg-gray-700 text-green-600 dark:text-green-400' : 'text-gray-600 dark:text-gray-300'}`} title="Numbered List"><ListOrdered size={18} /></button>
+            <button onClick={() => editor.chain().focus().toggleBlockquote().run()} className={`p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors ${editor.isActive('blockquote') ? 'bg-gray-100 dark:bg-gray-700 text-green-600 dark:text-green-400' : 'text-gray-600 dark:text-gray-300'}`} title="Quote"><Quote size={18} /></button>
+            <div className="w-px h-6 bg-gray-200 dark:bg-gray-700 mx-1"></div>
+            <button onClick={addImage} className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors text-gray-600 dark:text-gray-300" title="Add Image"><ImageIcon size={18} /></button>
+            <button onClick={addYoutube} className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors text-gray-600 dark:text-gray-300" title="Add YouTube Video"><YoutubeIcon size={18} /></button>
           </div>
         </FloatingMenu>
       )}
@@ -156,6 +156,11 @@ export default function Editor({ value, onChange, placeholder = 'Write your stor
         /* Remove default blue outline on focus */
         .ProseMirror:focus {
           outline: none;
+        }
+        
+        /* Default dark mode placeholder overrides for Tiptap */
+        .dark .ProseMirror p.is-editor-empty:first-child::before {
+          color: #6b7280;
         }
       `}</style>
     </div>

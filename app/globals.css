@@ -1,8 +1,31 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-border: var(--border);
+  --color-primary: var(--primary);
+  --color-accent: var(--accent);
+}
+
+:root {
+  --background: 255 255 255;
+  --foreground: 17 24 39;
+  --border: #e5e7eb;
+  --primary: #3b82f6;
+  --accent: #6366f1;
+}
+
+.dark {
+  --background: 10 14 22;
+  --foreground: 229 231 235;
+  --border: #374151;
+  --primary: #818cf8;
+  --accent: #3b82f6;
+}
 
 html, body {
-  @apply bg-gray-50 text-gray-900 antialiased;
+  @apply bg-gray-50 text-gray-900 dark:bg-[#0a0e16] dark:text-gray-100 antialiased;
 }
 
 /* Tiptap Editor Styles */
@@ -43,4 +66,15 @@ html, body {
   float: left;
   height: 0;
   pointer-events: none;
+}
+
+/* Dark-mode adjustments for embedded content and editor placeholder */
+.dark .prose [data-youtube-video],
+.dark .prose :where(iframe) {
+  border: 1px solid rgb(55 65 81); /* ~gray-700 */
+  box-shadow: 0 8px 20px -8px rgb(0 0 0 / 0.6);
+}
+
+.dark .ProseMirror p.is-editor-empty:first-child::before {
+  color: #9ca3af; /* lighter placeholder for dark backgrounds */
 }
