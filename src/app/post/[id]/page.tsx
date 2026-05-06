@@ -92,7 +92,7 @@ export default async function PostPage(props: { params: Promise<{ id: string }> 
         dangerouslySetInnerHTML={{ __html: post.content }} 
       />
 
-      <CommentSection comments={post.comments} />
+      <CommentSection postId={post.id} comments={post.comments} />
     </article>
   );
 }

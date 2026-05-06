@@ -1,90 +1,82 @@
 # Full-Stack Blog App
 
-Short, maintainable Next.js + Prisma blog application used for demonstrations and local development.
+A polished Next.js blog experience with authentication, rich-text publishing, search, categories, comments, and a responsive editorial-style UI.
 
-**Tech stack:** Next.js (App Router), TypeScript, Prisma, SQLite/Postgres (via DATABASE_URL), Tailwind CSS.
+## Setup Instructions
 
-## Quick Start (for maintainers)
+### Prerequisites
 
-Prerequisites:
+- Node.js 18 or newer
+- npm
+- A running backend API that serves the blog endpoints used by the frontend
 
-- Node.js 18+ (use nvm or similar)
-- npm or pnpm
+### Local Setup
 
-Clone, install, and run locally:
-
-1. Install dependencies:
+1. Install dependencies.
 
    ```bash
    npm install
    ```
 
-2. Create an environment file `.env.local` (copy from `.env.example` if present) and set the required variables:
+2. Create a `.env.local` file in the project root and set the API base URL.
 
-- `DATABASE_URL` — Prisma database URL (e.g. `file:./dev.db` or Postgres URL)
-- `GEMINI_API_KEY` — (optional) API key used by the app for AI features
-- `NEXTAUTH_URL` and `NEXTAUTH_SECRET` — if using next-auth in this project
-
-3. Prepare the database (Prisma):
-
-   ```bash
-   npx prisma generate
-   npx prisma migrate dev --name init
+   ```env
+   NEXT_PUBLIC_API_URL=http://localhost:3000
    ```
 
-   Or, if you prefer to push the schema without migrations for quick local setup:
+   Point this at the backend that exposes the posts, categories, auth, and comments routes.
 
-   ```bash
-   npx prisma db push
-   ```
-
-4. Seed initial data (categories):
-
-   ```bash
-   node seed-categories.js
-   ```
-
-5. Run the app in development:
+3. Start the development server.
 
    ```bash
    npm run dev
    ```
 
-## Important Files & Where to Look
+4. Optional checks.
 
-- Project root: `package.json` (npm scripts)
-- Prisma schema: [prisma/schema.prisma](prisma/schema.prisma)
-- Seed script: [seed-categories.js](seed-categories.js)
-- App entry (Next.js App Router): [src/app/page.tsx](src/app/page.tsx)
-- Main components: [src/components](src/components)
-- Auth helpers: [src/lib/auth-utils.ts](src/lib/auth-utils.ts) and [src/lib/auth-context.tsx](src/lib/auth-context.tsx)
+   ```bash
+   npm run build
+   npm run lint
+   ```
+
+## Features Implemented
+
+- Home feed with post cards, author info, category badges, and empty states.
+- Search bar that filters stories by query.
+- Category filtering with route-based state.
+- Pagination for browsing larger post lists.
+- Authentication-aware navbar with login, register, and logout actions.
+- Create post flow with a rich text editor and category selection.
+- Edit and delete actions for post authors.
+- Post detail pages with comment viewing and comment submission.
+- Responsive layout with dark mode support.
+- Animated UI details using motion and subtle transitions.
+
+## Bonus Features Implemented
+
+- Rich text editor extras such as headings, lists, quotes, links, images, and YouTube embeds.
+- Theme toggle for light and dark mode.
+- Optimistic-style comment updates that show new comments immediately when the API returns them.
+- Polished empty states and call-to-action screens.
+- Editorial-style visual treatment with glassmorphism, gradients, and motion polish.
+
+## Approximate Time Spent
+
+Approx. 14 hours total.
+
+## Folder Structure And Design Decisions
+
+- `src/app` contains the route-level pages and layout using the Next.js App Router. Each folder maps to a user-facing route such as the home page, login, register, create, post details, and edit screens.
+- `src/components` holds reusable UI building blocks such as the navbar, search bar, category filter, editor, comment section, pagination, and action buttons. Keeping these separate makes the pages easier to read and keeps interaction logic localized.
+- `src/lib` stores shared app state and helpers, including auth context and auth-related utilities. This avoids duplicating login state across pages and components.
+- `prisma` and `seed-categories.js` support the data model and initial category data for the backend-facing workflow.
+- `public` is reserved for static assets.
+
+Design-wise, the app leans into a modern editorial feel instead of a plain CRUD layout. The home page emphasizes visual hierarchy, generous spacing, and card-based browsing. Reusable client components handle interactive pieces like auth state, filters, rich text editing, comments, and theme switching so the route pages stay focused on composition rather than UI wiring.
 
 ## Scripts
 
-- `npm run dev` — start Next.js in development
-- `npm run build` — build for production
+- `npm run dev` — start the development server
+- `npm run build` — create a production build
 - `npm start` — run the production build
-
-Check `package.json` for the exact script names.
-
-## Maintenance Notes
-
-- When changing the Prisma schema, run `npx prisma migrate dev` and update the seed script if needed.
-- Keep environment variables required for CI/deploy in your secret store (do not commit `.env.local`).
-- If you add new dependencies, run `npm install` and verify the app builds with `npm run build`.
-
-## Contribution / Handoff
-
-1. Create a feature branch named `feature/<short-desc>`.
-2. Run the app and verify functionality locally.
-3. Open a PR with a short description and screenshots if the change affects UI.
-
-If you need context about auth flows or data models, start with [src/lib/auth-utils.ts](src/lib/auth-utils.ts) and [prisma/schema.prisma](prisma/schema.prisma).
-
-## Contact
-
-Leave a comment on the PR or reach out to the original author in the repo's issue tracker for handoff questions.
-
----
-
-This README is intended to help the next developer pick up maintenance quickly. If you'd like, I can also add a CI checklist or GitHub Actions workflow next.
+- `npm run lint` — run lint checks
